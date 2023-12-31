@@ -1,2 +1,0 @@
-# gmail-clone
-Gmail clone 
