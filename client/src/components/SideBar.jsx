@@ -1,29 +1,36 @@
-import { Drawer } from "@mui/material";
+
+import { Drawer, styled } from "@mui/material";
+
 import SideBarContent from "./SideBarContent";
 
+const StyledDrawer = styled(Drawer)`
+    margin-top: 54px;
+`
 
-const SideBar = ({ openDrawer }) =>{
+const SideBar = ({ toggleDrawer, openDrawer }) => {
+
     return (
-        <Drawer 
-            anchor="left"
+        <StyledDrawer
+            anchor='left'
             open={openDrawer}
+            onClose={toggleDrawer}
             hideBackdrop={true}
             ModalProps={{
-                keepMounted: true
+                keepMounted: true,
             }}
             variant="persistent"
             sx={{
-                '& .MuiDrawer-paper':{
-                    marginTop: '64px',
+                '& .MuiDrawer-paper': { 
                     width: 250,
-                    background: '#f5f5f5',
                     borderRight: 'none',
+                    background: '#f5F5F5',
+                    marginTop: '64px',
                     height: 'calc(100vh - 64px)'
-                }
+                },
             }}
-        >
-            <SideBarContent/>
-        </Drawer>
+          >
+            <SideBarContent />
+        </StyledDrawer>
     )
 }
 

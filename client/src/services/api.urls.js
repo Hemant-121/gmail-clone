@@ -1,15 +1,26 @@
-
 export const API_URLS = {
-    saveSentEmail: {
+    saveSentEmails: {
         endpoint: 'save',
+        method: 'POST'
+    },
+    saveDraftEmails: {
+        endpoint: 'save-draft',
         method: 'POST'
     },
     getEmailFromType: {
         endpoint: 'emails',
         method: 'GET'
     },
-    saveDraftEmails: {
-        endpoint: 'save-draft',
+    toggleStarredMails: {
+        endpoint: 'starred',
+        method: 'POST'
+    },
+    deleteEmails: {
+        endpoint: 'delete',
+        method: 'DELETE'
+    },
+    moveEmailsToBin: {
+        endpoint: 'bin',
         method: 'POST'
     }
 }
