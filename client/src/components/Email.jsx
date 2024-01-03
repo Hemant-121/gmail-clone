@@ -1,3 +1,4 @@
+import React from "react";
 import { ListItem, Checkbox, Typography, Box, styled } from "@mui/material";
 import { StarBorder, Star } from "@mui/icons-material";
 import useApi from "../hooks/useApi";
@@ -18,21 +19,17 @@ const Wrapper = styled(ListItem)`
   }
 `;
 
-// const Indicator = styled(Typography)`
-//     font-size: 12px !important;
-//     background: #ddd;
-//     color: #222;
-//     border-radius: 4px;
-//     margin-right: 6px;
-//     padding: 0 4px;
-// `;
+const ScrollableContent = styled(Box)`
+  overflow: auto;
+  max-height: 150px; // Set your desired max height here
+`;
 
-const Date = styled(Typography)({
-  marginLeft: "auto",
-  marginRight: 20,
-  fontSize: 12,
-  color: "#5F6368",
-});
+const Date = styled(Typography)`
+  marginLeft: auto;
+  marginRight: 20;
+  fontSize: 12;
+  color: #5f6368;
+`;
 
 const Email = ({
   email,
@@ -41,7 +38,6 @@ const Email = ({
   setSelectedEmails,
 }) => {
   const toggleStarredEmailService = useApi(API_URLS.toggleStarredMails);
-
   const navigate = useNavigate();
 
   const toggleStarredEmail = () => {
@@ -61,9 +57,6 @@ const Email = ({
 
   const truncatedSubject = email.subject.slice(0, 100);
 
-  
-
-
   return (
     <Wrapper>
       <Checkbox
@@ -74,7 +67,7 @@ const Email = ({
       {email.starred ? (
         <Star
           fontSize="small"
-          style={{ marginRight: 10, color: '#E5BF4C' }}
+          style={{ marginRight: 10, color: "#E5BF4C" }}
           onClick={() => toggleStarredEmail()}
         />
       ) : (
@@ -84,16 +77,15 @@ const Email = ({
           onClick={() => toggleStarredEmail()}
         />
       )}
-      <Box
-        onClick={() => navigate(routes.view.path, { state: { email: email } })}
+      <ScrollableContent
+        onClick={() =>
+          navigate(routes.view.path, { state: { email: email } })
+        }
       >
-        <Typography style={{ width: 200 }}>
-          To:{email.to.split("@")[0]}
+        <Typography style={{ overflow: "hidden", width: 200, height: 20 }}>
+          To: {email.to.split("@")[0]}
         </Typography>
-
-        {/* <Typography >{email.subject} {email.body && '-'} {email.body}</Typography> */}
-
-        <Typography style={{}}>
+        <Typography style={{ overflow: "hidden", height: 20 }}>
           {truncatedSubject.length < email.subject.length
             ? `${truncatedSubject}...`
             : truncatedSubject}
@@ -104,7 +96,7 @@ const Email = ({
             month: "long",
           })}
         </Date>
-      </Box>
+      </ScrollableContent>
     </Wrapper>
   );
 };

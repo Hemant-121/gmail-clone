@@ -10,6 +10,7 @@ import { EMPTY_TABS } from '../constants/constant';
 
 const Emails = () => {
     const [starredEmail, setStarredEmail] = useState(false);
+    const [selectAllChecked, setSelectAllChecked] = useState(false);
     const [selectedEmails, setSelectedEmails] = useState([]);
 
     const { openDrawer } = useOutletContext();
@@ -21,16 +22,18 @@ const Emails = () => {
 
     useEffect(() => {
         getEmailsService.call({}, type);
-    }, [type, starredEmail])
+        return () => setSelectAllChecked(false);
+    }, [type, starredEmail]);
 
     const selectAllEmails = (e) => {
+        setSelectAllChecked(e.target.checked);
         if (e.target.checked) {
             const emails = getEmailsService?.response?.map(email => email._id);
             setSelectedEmails(emails);
         } else {
             setSelectedEmails([]);
         }
-    }
+    };
 
     const deleteSelectedEmails = () => {
         if (type === 'bin') {
@@ -38,21 +41,27 @@ const Emails = () => {
         } else {
             moveEmailsToBin.call(selectedEmails);
         }
+        setSelectedEmails([]);
         setStarredEmail(prevState => !prevState);
-    }
+        setSelectAllChecked(false); 
+    };
 
     return (
         <Box style={openDrawer ? { marginLeft: 250, width: '100%' } : { width: '100%' } }>
             <Box style={{ padding: '20px 10px 0 10px', display: 'flex', alignItems: 'center' }}>
-                <Checkbox size="small" onChange={(e) => selectAllEmails(e)} />
-                <DeleteOutline onClick={(e) => deleteSelectedEmails(e)} />
+                <Checkbox
+                    size="small"
+                    onChange={(e) => selectAllEmails(e)}
+                    checked={selectAllChecked}
+                />
+                <DeleteOutline onClick={() => deleteSelectedEmails()} />
             </Box>
             <List>
                 {
                     getEmailsService?.response?.map(email => (
                         <Email 
                             email={email} 
-                            key={email.id}
+                            key={email._id}
                             setStarredEmail={setStarredEmail} 
                             selectedEmails={selectedEmails}
                             setSelectedEmails={setSelectedEmails}
@@ -65,7 +74,7 @@ const Emails = () => {
                     <NoMails message={EMPTY_TABS[type]} />
             }
         </Box>
-    )
-}
+    );
+};
 
 export default Emails;

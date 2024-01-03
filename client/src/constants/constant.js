@@ -7,7 +7,9 @@ export const VIEWS = {
     inbox: 'inbox',
     starred: 'starred',
     sent: 'sent',
-    drafts: 'drafts'
+    drafts: 'drafts',
+    bin: 'bin',
+    allmail: 'allmail'
 }
 
 export const EMPTY_TABS = {
@@ -21,7 +23,7 @@ export const EMPTY_TABS = {
     },
     starred: {
         heading: 'No starred messages',
-        subHeading: "Stars let you give messages a special status to make them easier to find. To star a message, click on the star outline beside any message or conversation."
+        subHeading: "Stars let you give messages a special status to make them easier to find."
     },
     sent: {
         heading: 'No sent messages!',
@@ -29,6 +31,10 @@ export const EMPTY_TABS = {
     },
     bin: {
         heading: 'No conversations in Bin.',
+        subHeading: ''
+    },
+    allmail: {
+        heading: 'No conversations in All Mail.',
         subHeading: ''
     }
 }

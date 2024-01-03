@@ -20,7 +20,7 @@ const Main = () => {
     
     return (
         <>
-            <Header toggleDrawer={toggleDrawer} />
+            <Header toggleDrawer={toggleDrawer}  />
             <Wrapper>
                 <SideBar toggleDrawer={toggleDrawer} openDrawer={openDrawer} />
                 <Suspense fallback={<SuspenseLoader />} >
