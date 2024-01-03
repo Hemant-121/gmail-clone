@@ -1,4 +1,4 @@
-import React from "react";
+
 import { ListItem, Checkbox, Typography, Box, styled } from "@mui/material";
 import { StarBorder, Star } from "@mui/icons-material";
 import useApi from "../hooks/useApi";
@@ -19,17 +19,12 @@ const Wrapper = styled(ListItem)`
   }
 `;
 
-const ScrollableContent = styled(Box)`
-  overflow: auto;
-  max-height: 150px; // Set your desired max height here
-`;
-
-const Date = styled(Typography)`
-  marginLeft: auto;
-  marginRight: 20;
-  fontSize: 12;
-  color: #5f6368;
-`;
+const Date = styled(Typography)({
+  marginLeft: "auto",
+  marginRight: 20,
+  fontSize: 12,
+  color: "#5F6368",
+});
 
 const Email = ({
   email,
@@ -38,6 +33,7 @@ const Email = ({
   setSelectedEmails,
 }) => {
   const toggleStarredEmailService = useApi(API_URLS.toggleStarredMails);
+
   const navigate = useNavigate();
 
   const toggleStarredEmail = () => {
@@ -67,7 +63,7 @@ const Email = ({
       {email.starred ? (
         <Star
           fontSize="small"
-          style={{ marginRight: 10, color: "#E5BF4C" }}
+          style={{ marginRight: 10, color: '#E5BF4C' }}
           onClick={() => toggleStarredEmail()}
         />
       ) : (
@@ -77,15 +73,13 @@ const Email = ({
           onClick={() => toggleStarredEmail()}
         />
       )}
-      <ScrollableContent
-        onClick={() =>
-          navigate(routes.view.path, { state: { email: email } })
-        }
+      <Box
+        onClick={() => navigate(routes.view.path, { state: { email: email } })}
       >
-        <Typography style={{ overflow: "hidden", width: 200, height: 20 }}>
-          To: {email.to.split("@")[0]}
+        <Typography style={{overflow: 'hidden', width: 200, height: 20 }}>
+          To:{email.to.split("@")[0]}
         </Typography>
-        <Typography style={{ overflow: "hidden", height: 20 }}>
+        <Typography style={{overflow: 'hidden', height: 20}}>
           {truncatedSubject.length < email.subject.length
             ? `${truncatedSubject}...`
             : truncatedSubject}
@@ -96,9 +90,10 @@ const Email = ({
             month: "long",
           })}
         </Date>
-      </ScrollableContent>
+      </Box>
     </Wrapper>
   );
 };
 
 export default Email;
+
